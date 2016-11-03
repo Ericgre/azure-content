@@ -189,7 +189,6 @@ Write-Host $cert.ToString($true)
 ```
 
 Alternatively, if you have an Azure subscription, follow the section [Add certificates to Key Vault](service-fabric-cluster-creation-via-arm.md#add-certificate-to-key-vault).
-
 ## Install the certificates
 Once you have certificate(s), you can install them on the cluster nodes. Your nodes need to have the latest Windows PowerShell 3.x installed on them. You will need to repeat these steps on each node, for both Cluster and Server certificates and any secondary certificates.
 
@@ -198,7 +197,7 @@ Once you have certificate(s), you can install them on the cluster nodes. Your no
 
     ```
     $pswd = "1234"
-    $PfcFilePath ="C:\mypfx.pfx"
+    $PfxFilePath ="C:\mypfx.pfx"
     Import-PfxCertificate -Exportable -CertStoreLocation Cert:\LocalMachine\My -FilePath $PfxFilePath -Password (ConvertTo-SecureString -String $pswd -AsPlainText -Force)
     ```
 
@@ -223,7 +222,7 @@ Once you have certificate(s), you can install them on the cluster nodes. Your no
     $accessRule = New-Object -TypeName System.Security.AccessControl.FileSystemAccessRule -ArgumentList $permission
 
     # Location of the machine related keys
-    $keyPath = $Join-Path -Path $env:ProgramData -ChildPath "\Microsoft\Crypto\RSA\MachineKeys"
+    $keyPath = Join-Path -Path $env:ProgramData -ChildPath "\Microsoft\Crypto\RSA\MachineKeys"
     $keyName = $cert.PrivateKey.CspKeyContainerInfo.UniqueKeyContainerName
     $keyFullPath = Join-Path -Path $keyPath -ChildPath $keyName
 
